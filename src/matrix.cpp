@@ -270,3 +270,82 @@ double c_square_matrix :: trace() {
     }
     return sum;
 }
+
+/*
+
+Implementing lower triangular matrix
+
+*/
+
+
+c_lower_triangular_matrix::c_lower_triangular_matrix(int a) : c_square_matrix{ a } {
+    //calculate the memory allocation
+    int count = 0;
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j <= i; ++j) {
+            count = count + 1;
+        }
+    }
+    unsigned int byte_size_vec = count;
+        
+    // using new to allocate memory
+
+    matrix = new double[count];
+
+    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+        
+    //if (!(matrix = (double*)malloc(byte_size_vec))) {
+    //    cout << "No memory" << endl;
+    //    exit(1);
+    //}
+    //cout << "First Element Address: " << matrix << endl;
+    //cout << "Last Element Address: " << matrix + m * m - 1 << endl;
+    //cout << "Sizeof: " << byte_size_vec << endl;
+    //size_t true_length = portable_ish_malloced_size(matrix);
+    //printf("%zu\n", true_length);
+};
+
+
+
+c_lower_triangular_matrix c_lower_triangular_matrix::operator+(c_lower_triangular_matrix const& obj) {
+    c_lower_triangular_matrix result(m);
+    int line = 0;
+    int index = 0;
+
+    for (int i = 1; i - 1 < m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            *(result.matrix + index) = *(matrix + index) + *(obj.matrix + index);
+        }
+        cout << endl;
+    }
+    return result;
+}
+
+c_lower_triangular_matrix c_lower_triangular_matrix::operator*(c_lower_triangular_matrix const& obj) {
+    c_lower_triangular_matrix result(m);
+    int a_line = 0;
+    int b_line = 0;
+    double sum = 0;
+    double a_ik = 0;
+    double b_kj = 0;
+    int k = 0;
+
+    for (int i = 1; i - 1 < m; ++i) { //iniciei i = 1 e deixei i-1
+        a_line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; ++j) {
+            k = j;
+            sum = 0;
+            while  (k < i) {
+                b_line = (k) * (k+1) / 2;
+                a_ik = *(matrix + a_line + k);
+                b_kj = *(obj.matrix + b_line + j);
+                sum = sum + a_ik * b_kj;
+                ++k;
+            }
+            *(result.matrix + a_line + j) = sum;
+        }
+    }
+    return result;
+}

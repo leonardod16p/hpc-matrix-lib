@@ -13,6 +13,8 @@ class c_matrix {
         int m, n;
         double* matrix;
 
+        c_matrix(int a, int b, bool alocar_memoria);
+
     public:
 
         c_matrix(int a, int b);
@@ -61,4 +63,29 @@ public:
     
     double trace();
 
+};
+
+
+class c_lower_triangular_matrix : public c_square_matrix {
+    
+public:
+    int getfirstdimension();
+    int getseconddimension();
+    c_square_matrix converting();
+    double* getmatrix();
+
+    c_lower_triangular_matrix(int a);
+
+    c_lower_triangular_matrix operator+(c_lower_triangular_matrix const& obj);
+    c_lower_triangular_matrix operator*(c_lower_triangular_matrix const& obj);
+    
+
+    friend c_lower_triangular_matrix operator*(double, c_lower_triangular_matrix);
+    friend c_lower_triangular_matrix operator*(c_lower_triangular_matrix, double);
+
+    void define_values();
+    void show_matrix();
+    c_matrix transpose(c_lower_triangular_matrix);
+    double det();
+    double trace();
 };
