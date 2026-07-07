@@ -36,8 +36,19 @@ c_matrix::~c_matrix(){
         delete[] matrix;
         cout << "Memory deallocation succeed." << endl;
     }
-
 }
+
+c_matrix::c_matrix(int a, int b, bool alocar_memoria){
+    m = a;
+    n = b;
+    //se for falso, n vamos alocar memoria a partir daqui
+    if (alocar_memoria == false) {
+        matrix = nullptr; 
+    } else {
+        matrix = new double[m * n];
+    }
+}
+
 
 
 // copying matrix
@@ -268,5 +279,162 @@ double c_square_matrix :: trace() {
         sum = sum + *(matrix + line + column);
         ++column;
     }
+    return sum;
+}
+
+/*
+
+Implementing lower triangular matrix
+
+*/
+
+//chamamos o construtor com o false para que ele n aloque memoria duas vezes
+c_lower_triangular_matrix::c_lower_triangular_matrix(int a) : c_square_matrix{ a, false } {
+    //calculate the memory allocation
+    int count = 0;
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j <= i; ++j) {
+            count = count + 1;
+        }
+    }
+    unsigned int byte_size_vec = count;
+        
+    // using new to allocate memory
+
+    matrix = new double[count];
+
+    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+        
+    //if (!(matrix = (double*)malloc(byte_size_vec))) {
+    //    cout << "No memory" << endl;
+    //    exit(1);
+    //}
+    //cout << "First Element Address: " << matrix << endl;
+    //cout << "Last Element Address: " << matrix + m * m - 1 << endl;
+    //cout << "Sizeof: " << byte_size_vec << endl;
+    //size_t true_length = portable_ish_malloced_size(matrix);
+    //printf("%zu\n", true_length);
+};
+
+
+
+c_lower_triangular_matrix c_lower_triangular_matrix::operator+(c_lower_triangular_matrix const& obj) {
+    c_lower_triangular_matrix result(m);
+    int line = 0;
+    int index = 0;
+
+    for (int i = 1; i - 1 < m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            *(result.matrix + index) = *(matrix + index) + *(obj.matrix + index);
+        }
+        cout << endl;
+    }
+    return result;
+}
+
+c_lower_triangular_matrix c_lower_triangular_matrix::operator*(c_lower_triangular_matrix const& obj) {
+    c_lower_triangular_matrix result(m);
+    int a_line = 0;
+    int b_line = 0;
+    double sum = 0;
+    double a_ik = 0;
+    double b_kj = 0;
+    int k = 0;
+
+    for (int i = 1; i - 1 < m; ++i) { //iniciei i = 1 e deixei i-1
+        a_line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; ++j) {
+            k = j;
+            sum = 0;
+            while  (k < i) {
+                b_line = (k) * (k+1) / 2;
+                a_ik = *(matrix + a_line + k);
+                b_kj = *(obj.matrix + b_line + j);
+                sum = sum + a_ik * b_kj;
+                ++k;
+            }
+            *(result.matrix + a_line + j) = sum;
+        }
+    }
+    return result;
+}
+
+/*
+
+lower triangular matrix methods
+
+*/
+
+
+double* c_lower_triangular_matrix :: getmatrix(){
+    return matrix;
+}
+
+
+int c_lower_triangular_matrix :: getfirstdimension(){
+    return m;
+}
+
+int c_lower_triangular_matrix :: getseconddimension(){
+    return m;
+}
+
+
+void c_lower_triangular_matrix::define_values() {
+    cout << "To enter an element, type the number you want and press enter: " << endl;
+    int line = 0;
+    int index = 0;
+
+    for (int i = 1; i - 1 < m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            cin >> *(matrix + index);
+        }
+        cout << endl;
+    }
+}
+
+void c_lower_triangular_matrix::show_matrix(){
+    int line = 0;
+    int index = 0;
+
+    for (int i = 1; i - 1 < m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            cout <<  *(matrix + index) << " ";
+        }
+        cout << endl;
+    }
+}
+
+double c_lower_triangular_matrix::det() {
+    double prod = 1;
+    int line = 0;
+    int diagonal_index = 0;
+
+    for (int i = 0; i < m; i++) {
+        line = i * (i + 1) / 2;
+        diagonal_index = line + i;
+        prod = prod * (*(matrix + diagonal_index));
+        }
+
+    return prod;
+}
+
+double c_lower_triangular_matrix::trace(){
+    double sum = 0;
+    int line = 0;
+    int diagonal_index = 0;
+
+    for (int i = 0; i < m; i++) {
+        line = i * (i + 1) / 2;
+        diagonal_index = line + i;
+        sum = sum + (*(matrix + diagonal_index));
+        }
+
     return sum;
 }

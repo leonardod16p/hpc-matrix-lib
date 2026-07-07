@@ -12,6 +12,9 @@ class c_matrix {
     protected:
         int m, n;
         double* matrix;
+        //Isso previni que aloquemos memoria duas vezes nas matrizes com alocacao personalizada
+        //antes alocava no construtor da classe filha e novamente na classe c_matrix
+        c_matrix(int a, int b, bool alocar_memoria);
 
     public:
 
@@ -46,7 +49,12 @@ class c_matrix {
 
 
 class c_square_matrix : public c_matrix {
-public:
+
+    protected:
+        //como as matrizes filhas herdam da matriz quadrada, precisamos repassar a 
+        //mensagem de alocacao por ela 
+        c_square_matrix(int a, bool alocar_memoria) : c_matrix(a, a, alocar_memoria) {}
+    public:
 
     using c_matrix::c_matrix;
     c_square_matrix(int a) :c_matrix(a,a) {
@@ -61,4 +69,29 @@ public:
     
     double trace();
 
+};
+
+
+class c_lower_triangular_matrix : public c_square_matrix {
+    
+public:
+    int getfirstdimension();
+    int getseconddimension();
+    c_square_matrix converting();
+    double* getmatrix();
+
+    c_lower_triangular_matrix(int a);
+
+    c_lower_triangular_matrix operator+(c_lower_triangular_matrix const& obj);
+    c_lower_triangular_matrix operator*(c_lower_triangular_matrix const& obj);
+    
+
+    friend c_lower_triangular_matrix operator*(double, c_lower_triangular_matrix);
+    friend c_lower_triangular_matrix operator*(c_lower_triangular_matrix, double);
+
+    void define_values();
+    void show_matrix();
+    c_matrix transpose(c_lower_triangular_matrix);
+    double det();
+    double trace();
 };
