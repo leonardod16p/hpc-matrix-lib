@@ -381,6 +381,38 @@ c_lower_triangular_matrix c_lower_triangular_matrix::operator*(c_lower_triangula
     return result;
 }
 
+c_lower_triangular_matrix operator*(c_lower_triangular_matrix A, double lambda){
+    int line = 0;
+    int index = 0;
+
+    c_lower_triangular_matrix result(A.m);
+    for (int i = 1; i - 1 < A.m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            *(result.matrix + index) = lambda*(*(A.matrix + index));
+        }
+        cout << endl;
+    }
+    return result;
+}
+
+c_lower_triangular_matrix operator*(double lambda, c_lower_triangular_matrix A){
+    int line = 0;
+    int index = 0;
+
+    c_lower_triangular_matrix result(A.m);
+    for (int i = 1; i - 1 < A.m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            *(result.matrix + index) = lambda*(*(A.matrix + index));
+        }
+        cout << endl;
+    }
+    return result;
+}
+
 /*
 
 lower triangular matrix methods
