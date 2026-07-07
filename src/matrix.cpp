@@ -246,6 +246,26 @@ void c_matrix::define_values() {
     }
 }
 
+c_matrix c_matrix::transpose() {
+    c_matrix result(n, m);
+    result.null_matrix();
+    int a_line = 0;
+    int b_line = 0;
+    int i = 0;
+    int j = 0;
+    while (i < m) {
+        a_line = i * n;
+        j = 0;
+        while (j < n) {
+            b_line = j * m;
+            *(result.matrix + b_line + i) = *(matrix + a_line + j);
+            ++j;
+        }
+        ++i;
+    }
+    return result;
+}
+
 void c_matrix::show_matrix() const {
     int line = 0;
     int column = 0;
@@ -361,6 +381,38 @@ c_lower_triangular_matrix c_lower_triangular_matrix::operator*(c_lower_triangula
     return result;
 }
 
+c_lower_triangular_matrix operator*(c_lower_triangular_matrix A, double lambda){
+    int line = 0;
+    int index = 0;
+
+    c_lower_triangular_matrix result(A.m);
+    for (int i = 1; i - 1 < A.m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            *(result.matrix + index) = lambda*(*(A.matrix + index));
+        }
+        cout << endl;
+    }
+    return result;
+}
+
+c_lower_triangular_matrix operator*(double lambda, c_lower_triangular_matrix A){
+    int line = 0;
+    int index = 0;
+
+    c_lower_triangular_matrix result(A.m);
+    for (int i = 1; i - 1 < A.m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            *(result.matrix + index) = lambda*(*(A.matrix + index));
+        }
+        cout << endl;
+    }
+    return result;
+}
+
 /*
 
 lower triangular matrix methods
@@ -438,3 +490,33 @@ double c_lower_triangular_matrix::trace(){
 
     return sum;
 }
+
+c_square_matrix c_lower_triangular_matrix::converting(){
+    double* matrix_result = nullptr;
+    c_square_matrix result(m);
+    result.null_matrix();
+    matrix_result = result.getmatrix();
+
+    int a_line = 0;
+    int b_line = 0;
+    double value = 0;
+    for (int i = 0; i  < m; i++) {
+        a_line = i * m;
+        b_line = (i + 1) * (i) / 2;
+        for (int j = 0; j - 1 < i; j++) {
+            *(matrix_result + a_line + j) = *(matrix + b_line + j);
+        }
+        cout << endl;
+    }
+    return result;
+}
+
+c_matrix c_lower_triangular_matrix::transpose(c_lower_triangular_matrix A) { 
+
+    //Low Quality Code
+    c_matrix result(A.getfirstdimension(), A.getfirstdimension());
+
+    result = A.converting();
+    result = result.transpose();
+    return result;
+ }
