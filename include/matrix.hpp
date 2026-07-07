@@ -9,13 +9,14 @@ Classes Definitions
 
 
 class c_matrix {
-    int m, n;
-    double* matrix;
+    protected:
+        int m, n;
+        double* matrix;
 
     public:
 
         c_matrix(int a, int b);
-        ~c_matrix();
+        virtual ~c_matrix();
 
         c_matrix(const c_matrix& obj);
         c_matrix& operator=(const c_matrix& obj);
@@ -41,4 +42,21 @@ class c_matrix {
         void show_matrix() const;
         void null_matrix();
         
+};
+
+
+class c_square_matrix : public c_matrix {
+public:
+
+    int getfirstdimension();
+    int getseconddimension();
+    using c_matrix::c_matrix;
+    c_square_matrix(int a) :c_matrix(a,a) {
+        
+        cout << "Square Matrix Created" << endl;
+    
+    };
+    
+    double trace();
+
 };

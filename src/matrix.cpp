@@ -252,3 +252,21 @@ void c_matrix::show_matrix() const {
     }
 }
 
+
+/*
+
+Square Matrix Implementation
+
+*/
+
+double c_square_matrix :: trace() {
+    int line = 0;
+    int column = 0;
+    double sum = 0;
+    while (column < m) {
+        line = column * m;
+        sum = sum + *(matrix + line + column);
+        ++column;
+    }
+    return sum;
+}
