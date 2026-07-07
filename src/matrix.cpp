@@ -458,3 +458,13 @@ double c_lower_triangular_matrix::trace(){
 
     return sum;
 }
+
+c_matrix c_lower_triangular_matrix::transpose(c_lower_triangular_matrix A) { 
+
+    //Low Quality Code
+    c_matrix result(A.getfirstdimension(), A.getfirstdimension());
+
+    result = A.converting();
+    result = result.transpose();
+    return result;
+ }
