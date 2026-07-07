@@ -459,6 +459,26 @@ double c_lower_triangular_matrix::trace(){
     return sum;
 }
 
+c_square_matrix c_lower_triangular_matrix::converting(){
+    double* matrix_result = nullptr;
+    c_square_matrix result(m);
+    result.null_matrix();
+    matrix_result = result.getmatrix();
+
+    int a_line = 0;
+    int b_line = 0;
+    double value = 0;
+    for (int i = 0; i  < m; i++) {
+        a_line = i * m;
+        b_line = (i + 1) * (i) / 2;
+        for (int j = 0; j - 1 < i; j++) {
+            *(matrix_result + a_line + j) = *(matrix + b_line + j);
+        }
+        cout << endl;
+    }
+    return result;
+}
+
 c_matrix c_lower_triangular_matrix::transpose(c_lower_triangular_matrix A) { 
 
     //Low Quality Code
