@@ -138,7 +138,7 @@ c_matrix c_matrix::operator*(const c_matrix& obj) const {
 }
 
 
-c_matrix c_matrix::operator*(double lambda, c_matrix A){
+ c_matrix operator*(double lambda, c_matrix A){
     int line = 0;
     int column = 0;
     int i = 0;
@@ -159,7 +159,7 @@ c_matrix c_matrix::operator*(double lambda, c_matrix A){
     return result;
 };
 
-c_matrix c_matrix::operator*(c_matrix A, double lambda){
+c_matrix operator*(c_matrix A, double lambda){
     int line = 0;
     int column = 0;
     int i = 0;
@@ -252,3 +252,21 @@ void c_matrix::show_matrix() const {
     }
 }
 
+
+/*
+
+Square Matrix Implementation
+
+*/
+
+double c_square_matrix :: trace() {
+    int line = 0;
+    int column = 0;
+    double sum = 0;
+    while (column < m) {
+        line = column * m;
+        sum = sum + *(matrix + line + column);
+        ++column;
+    }
+    return sum;
+}
