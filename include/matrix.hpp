@@ -12,7 +12,8 @@ class c_matrix {
     protected:
         int m, n;
         double* matrix;
-
+        //Isso previni que aloquemos memoria duas vezes nas matrizes com alocacao personalizada
+        //antes alocava no construtor da classe filha e novamente na classe c_matrix
         c_matrix(int a, int b, bool alocar_memoria);
 
     public:
@@ -48,7 +49,12 @@ class c_matrix {
 
 
 class c_square_matrix : public c_matrix {
-public:
+
+    protected:
+        //como as matrizes filhas herdam da matriz quadrada, precisamos repassar a 
+        //mensagem de alocacao por ela 
+        c_square_matrix(int a, bool alocar_memoria) : c_matrix(a, a, alocar_memoria) {}
+    public:
 
     using c_matrix::c_matrix;
     c_square_matrix(int a) :c_matrix(a,a) {

@@ -36,8 +36,19 @@ c_matrix::~c_matrix(){
         delete[] matrix;
         cout << "Memory deallocation succeed." << endl;
     }
-
 }
+
+c_matrix::c_matrix(int a, int b, bool alocar_memoria){
+    m = a;
+    n = b;
+    //se for falso, n vamos alocar memoria a partir daqui
+    if (alocar_memoria == false) {
+        matrix = nullptr; 
+    } else {
+        matrix = new double[m * n];
+    }
+}
+
 
 
 // copying matrix
@@ -277,8 +288,8 @@ Implementing lower triangular matrix
 
 */
 
-
-c_lower_triangular_matrix::c_lower_triangular_matrix(int a) : c_square_matrix{ a } {
+//chamamos o construtor com o false para que ele n aloque memoria duas vezes
+c_lower_triangular_matrix::c_lower_triangular_matrix(int a) : c_square_matrix{ a, false } {
     //calculate the memory allocation
     int count = 0;
     for (int i = 0; i < m; ++i) {
