@@ -360,3 +360,81 @@ c_lower_triangular_matrix c_lower_triangular_matrix::operator*(c_lower_triangula
     }
     return result;
 }
+
+/*
+
+lower triangular matrix methods
+
+*/
+
+
+double* c_lower_triangular_matrix :: getmatrix(){
+    return matrix;
+}
+
+
+int c_lower_triangular_matrix :: getfirstdimension(){
+    return m;
+}
+
+int c_lower_triangular_matrix :: getseconddimension(){
+    return m;
+}
+
+
+void c_lower_triangular_matrix::define_values() {
+    cout << "To enter an element, type the number you want and press enter: " << endl;
+    int line = 0;
+    int index = 0;
+
+    for (int i = 1; i - 1 < m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            cin >> *(matrix + index);
+        }
+        cout << endl;
+    }
+}
+
+void c_lower_triangular_matrix::show_matrix(){
+    int line = 0;
+    int index = 0;
+
+    for (int i = 1; i - 1 < m; i++) {
+        line = (i - 1) * (i) / 2;
+        for (int j = 0; j < i; j++) {
+            index = line + j;
+            cout <<  *(matrix + index) << " ";
+        }
+        cout << endl;
+    }
+}
+
+double c_lower_triangular_matrix::det() {
+    double prod = 1;
+    int line = 0;
+    int diagonal_index = 0;
+
+    for (int i = 0; i < m; i++) {
+        line = i * (i + 1) / 2;
+        diagonal_index = line + i;
+        prod = prod * (*(matrix + diagonal_index));
+        }
+
+    return prod;
+}
+
+double c_lower_triangular_matrix::trace(){
+    double sum = 0;
+    int line = 0;
+    int diagonal_index = 0;
+
+    for (int i = 0; i < m; i++) {
+        line = i * (i + 1) / 2;
+        diagonal_index = line + i;
+        sum = sum + (*(matrix + diagonal_index));
+        }
+
+    return sum;
+}
