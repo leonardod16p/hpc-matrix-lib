@@ -246,6 +246,26 @@ void c_matrix::define_values() {
     }
 }
 
+c_matrix c_matrix::transpose() {
+    c_matrix result(n, m);
+    result.null_matrix();
+    int a_line = 0;
+    int b_line = 0;
+    int i = 0;
+    int j = 0;
+    while (i < m) {
+        a_line = i * n;
+        j = 0;
+        while (j < n) {
+            b_line = j * m;
+            *(result.matrix + b_line + i) = *(matrix + a_line + j);
+            ++j;
+        }
+        ++i;
+    }
+    return result;
+}
+
 void c_matrix::show_matrix() const {
     int line = 0;
     int column = 0;
