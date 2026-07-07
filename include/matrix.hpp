@@ -50,6 +50,10 @@ public:
 
     using c_matrix::c_matrix;
     c_square_matrix(int a) :c_matrix(a,a) {
+
+        //se tiver mais parametros ele vai criar uma matriz com colunas e linhas de tamanhos diferentes
+        //exemplo: c_square_matrix teste2(2,3); eh permitido. pq ele ta simplesmente usando construtor de 
+        //c_matrix
         
         cout << "Square Matrix Created" << endl;
     
