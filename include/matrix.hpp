@@ -48,8 +48,6 @@ class c_matrix {
 class c_square_matrix : public c_matrix {
 public:
 
-    int getfirstdimension();
-    int getseconddimension();
     using c_matrix::c_matrix;
     c_square_matrix(int a) :c_matrix(a,a) {
         
