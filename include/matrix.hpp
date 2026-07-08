@@ -46,6 +46,9 @@ class c_matrix {
         void show_matrix() const;
         void null_matrix();
         
+        c_matrix multiply_ikj(const c_matrix& obj) const;
+        c_matrix multiply_SIMD(const c_matrix& obj) const;
+        c_matrix multiply_CUDA(const c_matrix& obj) const;
 };
 
 
