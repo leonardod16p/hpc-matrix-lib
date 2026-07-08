@@ -783,3 +783,20 @@ double c_diagonal_matrix::det(){
     }
     return prod;
 }
+
+
+
+c_square_matrix c_diagonal_matrix::converting(){
+    double* matrix_result = nullptr;
+    c_square_matrix result(m);
+    result.null_matrix();
+    matrix_result = result.getmatrix();
+    int line = 0;
+    int i = 0;
+    while (i < m) {
+        line = i * m;
+        *(matrix_result + line + i) = *(matrix + i);
+        ++i;
+    }
+    return result;
+}

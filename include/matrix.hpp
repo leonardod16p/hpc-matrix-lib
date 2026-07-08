@@ -77,6 +77,12 @@ class c_lower_triangular_matrix : public c_square_matrix {
 public:
     int getfirstdimension();
     int getseconddimension();
+
+    /*
+    Method to convert any type of matrix to c_square_matrix. 
+    We are going to use this to overload operators on classes of different hierarchies
+    */
+
     c_square_matrix converting();
     double* getmatrix();
 
@@ -101,7 +107,13 @@ public:
 
     int getfirstdimension();
     int getseconddimension();
+    
+    /*
+    Method to convert any type of matrix to c_square_matrix. 
+    We are going to use this to overload operators on classes of different hierarchies
+    */
     c_square_matrix converting();
+    
     double* getmatrix();
 
     c_upper_triangular_matrix(int a);
@@ -124,6 +136,11 @@ public:
 
 class c_diagonal_matrix : public c_square_matrix {
 public:
+
+    /*
+    Method to convert any type of matrix to c_square_matrix. 
+    We are going to use this to overload operators on classes of different hierarchies
+    */
     c_square_matrix converting();
 
     c_diagonal_matrix(int a);
