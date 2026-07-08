@@ -939,7 +939,7 @@ c_matrix c_matrix::multiply_ikj(const c_matrix& obj) const{
                     b_kj = *(obj.matrix + b_line + j);
                     //sum = sum + a_ik * b_kj;
                     *(result.matrix + i*p + j) = *(result.matrix + i*p + j) + a_ik * b_kj;
-                    cout << "a_ij: " << a_ik << " b_jk: " << b_kj << " sum: "<< sum << " c_ij: " << *(result.matrix + i*p + j) << endl;
+                    //cout << "a_ij: " << a_ik << " b_jk: " << b_kj << " sum: "<< sum << " c_ij: " << *(result.matrix + i*p + j) << endl;
                     //*(result.matrix + i*p + j) = sum;
                 }
             }

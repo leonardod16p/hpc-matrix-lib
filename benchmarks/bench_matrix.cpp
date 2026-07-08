@@ -1,21 +1,39 @@
 #include <benchmark/benchmark.h>
 #include "matrix.hpp" 
 
-static void BM_MultiplicacaoMatriz(benchmark::State& state) {
+static void BM_MultiplicacaoMatriz_default(benchmark::State& state) {
     //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
-    c_matrix A(10000, 10000);
-    c_matrix B(10000, 10000);
+    c_matrix A(1000, 1000);
+    c_matrix B(1000, 1000);
 
     A.define_values(false, 10000000000000);
     B.define_values(false, 10000000000000);
 
     for (auto _ : state) {
-        c_matrix C = A + B;
+        c_matrix C = A * B;
         benchmark::DoNotOptimize(C);
     }
 }
 
-BENCHMARK(BM_MultiplicacaoMatriz);
+BENCHMARK(BM_MultiplicacaoMatriz_default);
+
+
+static void BM_MultiplicacaoMatriz_ikj(benchmark::State& state) {
+    //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
+    c_matrix A(1000, 1000);
+    c_matrix B(1000, 1000);
+
+    A.define_values(false, 10000000000000);
+    B.define_values(false, 10000000000000);
+
+    for (auto _ : state) {
+        c_matrix C = A.multiply_ikj(B);
+        benchmark::DoNotOptimize(C);
+    }
+}
+
+BENCHMARK(BM_MultiplicacaoMatriz_ikj);
+
 
 // int main (){
     
