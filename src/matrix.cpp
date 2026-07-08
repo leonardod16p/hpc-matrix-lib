@@ -115,7 +115,9 @@ c_matrix c_matrix::operator*(const c_matrix& obj) const {
     //m x n * n x p
     int p = obj.n;
     if (n == obj.m) {
-        c_matrix result(obj.m, p); //deveria ser m e nao obj.m
+        cout << "m: " << obj.m << " n: " << p << endl;
+        c_matrix result(m, p); //deveria ser m e nao obj.m
+        
         result.null_matrix();
         int a_line = 0;
         int b_line = 0;
@@ -123,10 +125,9 @@ c_matrix c_matrix::operator*(const c_matrix& obj) const {
         double sum = 0;
         double a_ik = 0;
         double b_kj = 0;
+        //normal ijk sequence loop
         for (int i = 0; i < m; ++i) {
             a_line = i * n;
-            //changing the order of iteration
-            //switching from ijk to ikj for optimizing cache hit
             for (int j = 0; j < p; ++j) {
                 sum = 0;
                 for (int k = 0; k < n; ++k) {
@@ -910,3 +911,53 @@ c_square_matrix c_diagonal_matrix::converting(){
     }
     return result;
 }
+
+c_matrix c_matrix::multiply_ikj(const c_matrix& obj) const{
+    //Two matrices multiplication of size m*n and n*p
+    //Resulting matrix must be of m*p size
+    //m x n * n x p
+    int p = obj.n;
+    if (n == obj.m) {
+        c_matrix result(m, p); //deveria ser m e nao obj.m
+        result.null_matrix();
+        int a_line = 0;
+        int b_line = 0;
+        int c_line = 0;
+        double sum = 0;
+        double a_ik = 0;
+        double b_kj = 0;
+        for (int i = 0; i < m; ++i) {
+            a_line = i * n;
+            //changing the order of iteration
+            //switching from ijk to ikj for optimizing cache hit
+            for (int k = 0; k < n; ++k){
+                sum = 0;
+                b_line = k * p;
+                a_ik = *(matrix + a_line + k);
+                
+                for (int j = 0; j < p; ++j) {
+                    b_kj = *(obj.matrix + b_line + j);
+                    //sum = sum + a_ik * b_kj;
+                    *(result.matrix + i*p + j) = *(result.matrix + i*p + j) + a_ik * b_kj;
+                    cout << "a_ij: " << a_ik << " b_jk: " << b_kj << " sum: "<< sum << " c_ij: " << *(result.matrix + i*p + j) << endl;
+                    //*(result.matrix + i*p + j) = sum;
+                }
+            }
+        }
+        return result;
+        }
+    else {
+        cout << "Matrix multiplication Undefined" << endl;
+        cout << "First Matrix" << endl;
+        cout << "m:  " << m << "\t" << "n:  " << n << "\t" << endl;
+        cout << "Second Matrix" << endl;
+        cout << "m:  " << obj.m << "\t" << "n:  " << obj.n << "\t" << endl;
+        throw "You cannot perform this operation!";
+    }
+}
+
+
+
+//c_matrix multiply_SIMD(const c_matrix& obj) const;
+//c_matrix multiply_CUDA(const c_matrix& obj) const;
+
