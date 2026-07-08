@@ -95,3 +95,51 @@ public:
     double det();
     double trace();
 };
+
+class c_upper_triangular_matrix : public c_square_matrix {
+public:
+
+    int getfirstdimension();
+    int getseconddimension();
+    c_square_matrix converting();
+    double* getmatrix();
+
+    c_upper_triangular_matrix(int a);
+
+
+    c_upper_triangular_matrix operator+(c_upper_triangular_matrix const& obj);
+    c_upper_triangular_matrix operator*(c_upper_triangular_matrix const& obj);
+
+    friend c_upper_triangular_matrix operator*(double, c_upper_triangular_matrix);
+    friend c_upper_triangular_matrix operator*(c_upper_triangular_matrix, double);
+    
+    void define_values();
+    void show_matrix();
+    
+    c_matrix transpose(c_upper_triangular_matrix);
+    
+    double det();
+    double trace();
+};
+
+class c_diagonal_matrix : public c_square_matrix {
+public:
+    c_square_matrix converting();
+
+    c_diagonal_matrix(int a);
+
+    int getfirstdimension();
+    int getseconddimension();
+    double* getmatrix();
+    void setmatrix(double value, double* address);
+    
+    friend c_diagonal_matrix operator*(double, c_diagonal_matrix);
+    friend c_diagonal_matrix operator*(c_diagonal_matrix, double);
+
+    void define_values();
+    void show_matrix();
+    double det();
+    double trace();
+    void null_matrix();
+
+};
