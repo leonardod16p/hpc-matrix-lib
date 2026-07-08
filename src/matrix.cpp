@@ -570,6 +570,39 @@ c_upper_triangular_matrix c_upper_triangular_matrix::operator+(c_upper_triangula
     return result;
 }
 
+c_upper_triangular_matrix operator*(double lambda, c_upper_triangular_matrix A){
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    c_upper_triangular_matrix result(A.m);
+    for (int i = 1; i - 1 < A.m; i++) {
+        for (int j = 0; j < discount + A.m; j++) {
+            *(result.matrix + line + j) = lambda*(*(A.matrix + line + j));
+        }
+        line = line + discount + A.m;
+        discount--;
+        cout << endl;
+    }
+    return result;
+}
+
+c_upper_triangular_matrix operator*(c_upper_triangular_matrix A, double lambda){
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    c_upper_triangular_matrix result(A.m);
+    for (int i = 1; i - 1 < A.m; i++) {
+        for (int j = 0; j < discount + A.m; j++) {
+            *(result.matrix + line + j) = lambda*(*(A.matrix + line + j));
+        }
+        line = line + discount + A.m;
+        discount--;
+        cout << endl;
+    }
+    return result;
+}
+
+
 
 /*
 Upper Matrix Methods
@@ -717,6 +750,33 @@ c_diagonal_matrix::c_diagonal_matrix(int a):c_square_matrix {a,false}{
     size_t true_length = portable_ish_malloced_size(matrix);
     //printf("%zu\n", true_length);
 };
+
+/*
+
+Diagonal Matrix Operations
+
+*/
+
+c_diagonal_matrix operator*(double lambda, c_diagonal_matrix A){
+    int i = 0;
+    c_diagonal_matrix result(A.m);
+    while (i < A.m) {
+        *(result.matrix + i) = lambda*(*(A.matrix + i));
+        ++i;
+    }
+    return result;
+}
+
+c_diagonal_matrix operator*(c_diagonal_matrix A, double lambda){
+    int i = 0;
+    c_diagonal_matrix result(A.m);
+    while (i < A.m) {
+        *(result.matrix + i) = lambda*(*(A.matrix + i));
+        ++i;
+    }
+    return result;
+}
+
 
 /*
 Diagonal Matrix Methods
