@@ -40,7 +40,8 @@ class c_matrix {
 
         double* getmatrix();
         void setmatrix(double value, double* address);
-        void define_values();
+        //if isInput == true, them input from IO to the user. Else fullfill with all elements to value_to_fill
+        void define_values(bool isInput, double value_to_fill);
 
         void show_matrix() const;
         void null_matrix();
@@ -95,7 +96,7 @@ public:
     friend c_lower_triangular_matrix operator*(double, c_lower_triangular_matrix);
     friend c_lower_triangular_matrix operator*(c_lower_triangular_matrix, double);
 
-    void define_values();
+    void define_values(bool isInput, double value_to_fill);
     void show_matrix();
     c_matrix transpose(c_lower_triangular_matrix);
     double det();
@@ -125,7 +126,7 @@ public:
     friend c_upper_triangular_matrix operator*(double, c_upper_triangular_matrix);
     friend c_upper_triangular_matrix operator*(c_upper_triangular_matrix, double);
     
-    void define_values();
+    void define_values(bool isInput, double value_to_fill);;
     void show_matrix();
     
     c_matrix transpose(c_upper_triangular_matrix);
@@ -153,7 +154,7 @@ public:
     friend c_diagonal_matrix operator*(double, c_diagonal_matrix);
     friend c_diagonal_matrix operator*(c_diagonal_matrix, double);
 
-    void define_values();
+    void define_values(bool isInput, double value_to_fill);;
     void show_matrix();
     double det();
     double trace();
