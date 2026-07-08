@@ -3,11 +3,11 @@
 
 int main (){
     
-    //c_matrix A(2,3);
-    //c_matrix B(3,2);
-    //A.define_values();
-    //B.define_values();
-    //cout << "Testing c_matrix multiplication and multiplication by scalar: " << endl;
+    // c_matrix A(2,3);
+    // c_matrix B(3,2);
+    // A.define_values();
+    // B.define_values();
+    // cout << "Testing c_matrix multiplication and multiplication by scalar: " << endl;
     // A.show_matrix();
     // B.show_matrix();
     // (A*B).show_matrix();

@@ -125,6 +125,8 @@ c_matrix c_matrix::operator*(const c_matrix& obj) const {
         double b_kj = 0;
         for (int i = 0; i < m; ++i) {
             a_line = i * n;
+            //changing the order of iteration
+            //switching from ijk to ikj for optimizing cache hit
             for (int j = 0; j < p; ++j) {
                 sum = 0;
                 for (int k = 0; k < n; ++k) {
@@ -229,20 +231,32 @@ void c_matrix::null_matrix() {
     }
 }
 
-void c_matrix::define_values() {
-    cout << "To enter an element, type the number you want and press enter: " << endl;
+void c_matrix::define_values(bool isInput, double value_to_fill) {
     int line = 0;
     int column = 0;
     int i = 0;
-    while (i < m) {
-        column = 0;
-        line = i * n;
-        while (column < n) {
-            cin >> *(matrix + line + column);
-            ++column;
+    if(isInput == true){
+        cout << "To enter an element, type the number you want and press enter: " << endl;
+        while (i < m) {
+            column = 0;
+            line = i * n;
+            while (column < n) {
+                cin >> *(matrix + line + column);
+                ++column;
+            }
+            ++i;
         }
-        ++i;
-
+    }
+    else{
+        while (i < m) {
+            column = 0;
+            line = i * n;
+            while (column < n) {
+                *(matrix + line + column) = value_to_fill;
+                ++column;
+            }
+            ++i;
+        }
     }
 }
 
@@ -434,19 +448,32 @@ int c_lower_triangular_matrix :: getseconddimension(){
 }
 
 
-void c_lower_triangular_matrix::define_values() {
-    cout << "To enter an element, type the number you want and press enter: " << endl;
+void c_lower_triangular_matrix::define_values(bool isInput, double value_to_fill) {
     int line = 0;
     int index = 0;
 
-    for (int i = 1; i - 1 < m; i++) {
-        line = (i - 1) * (i) / 2;
-        for (int j = 0; j < i; j++) {
-            index = line + j;
-            cin >> *(matrix + index);
-        }
-        cout << endl;
+    if(isInput == true){
+        cout << "To enter an element, type the number you want and press enter: " << endl;
+        for (int i = 1; i - 1 < m; i++) {
+            line = (i - 1) * (i) / 2;
+            for (int j = 0; j < i; j++) {
+                index = line + j;
+                cin >> *(matrix + index);
+            }
+            cout << endl;
+        }    
     }
+    else{
+        for (int i = 1; i - 1 < m; i++) {
+            line = (i - 1) * (i) / 2;
+            for (int j = 0; j < i; j++) {
+                index = line + j;
+                *(matrix + index) = value_to_fill;
+            }
+            cout << endl;
+        }
+    }
+    
 }
 
 void c_lower_triangular_matrix::show_matrix(){
@@ -621,19 +648,33 @@ int c_upper_triangular_matrix :: getseconddimension(){
     return m;
 }
 
-void c_upper_triangular_matrix::define_values() {
-    cout << "To enter an element, type the number you want and press enter: " << endl;
+void c_upper_triangular_matrix::define_values(bool isInput, double value_to_fill) {
     int line = 0;
     int index = 0;
     int discount = 0;
-    for (int i = 1; i - 1 < m; i++) {
-        for (int j = 0; j < discount + m; j++) {
-            cin >> *(matrix + line + j);
-        }
-        line = line + discount + m;
-        discount--;
-        cout << endl;
+        
+    if(isInput == true){
+        cout << "To enter an element, type the number you want and press enter: " << endl;
+        for (int i = 1; i - 1 < m; i++) {
+            for (int j = 0; j < discount + m; j++) {
+                cin >> *(matrix + line + j);
+            }
+            line = line + discount + m;
+            discount--;
+            cout << endl;
+        }    
     }
+    else{
+        for (int i = 1; i - 1 < m; i++) {
+            for (int j = 0; j < discount + m; j++) {
+                *(matrix + line + j) = value_to_fill;
+            }
+            line = line + discount + m;
+            discount--;
+            cout << endl;
+        }
+    }
+    
 
 }
 
@@ -799,12 +840,21 @@ void c_diagonal_matrix :: setmatrix(double value, double* address){
 };
 
 
-void c_diagonal_matrix::define_values() {
-    cout << "To enter an element, type the number you want and press enter: " << endl;
-    int i = 0;
-    while (i < m) {
-        cin >> *(matrix + i);
-        ++i;
+void c_diagonal_matrix::define_values(bool isInput, double value_to_fill) {
+    if(isInput == true){
+        cout << "To enter an element, type the number you want and press enter: " << endl;
+        int i = 0;
+        while (i < m) {
+            cin >> *(matrix + i);
+            ++i;
+        }
+    }
+    else{
+        int i = 0;
+        while (i < m) {
+            *(matrix + i) = value_to_fill;
+            ++i;
+        }
     }
 }
 
