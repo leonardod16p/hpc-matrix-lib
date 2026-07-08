@@ -717,3 +717,69 @@ c_diagonal_matrix::c_diagonal_matrix(int a):c_square_matrix {a,false}{
     size_t true_length = portable_ish_malloced_size(matrix);
     //printf("%zu\n", true_length);
 };
+
+/*
+Diagonal Matrix Methods
+*/
+
+int c_diagonal_matrix :: getfirstdimension(){
+    return m;
+}
+
+int c_diagonal_matrix :: getseconddimension(){
+    return m;
+}
+
+double* c_diagonal_matrix :: getmatrix(){
+    return matrix;
+}
+
+void c_diagonal_matrix :: setmatrix(double value, double* address){
+    *address = value;
+};
+
+
+void c_diagonal_matrix::define_values() {
+    cout << "To enter an element, type the number you want and press enter: " << endl;
+    int i = 0;
+    while (i < m) {
+        cin >> *(matrix + i);
+        ++i;
+    }
+}
+
+void c_diagonal_matrix::show_matrix() {
+    int i = 0;
+    while (i < m) {
+        cout << *(matrix + i) << "\t";; 
+        ++i;
+    }
+}
+
+void c_diagonal_matrix::null_matrix() {
+    int i = 0;
+    while (i < m) {
+        *(matrix + i) = 0;
+        ++i;
+    }
+}
+
+double c_diagonal_matrix::trace(){
+    int i = 0;
+    double sum = 0;
+    while (i < m) {
+        sum = sum + *(matrix + i);
+        ++i;
+    }
+    return sum;
+};
+
+double c_diagonal_matrix::det(){
+    int i = 0;
+    double prod = 1;
+    while (i < m) {
+        prod = prod * *(matrix + i);
+        ++i;
+    }
+    return prod;
+}
