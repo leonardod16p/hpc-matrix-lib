@@ -122,3 +122,24 @@ public:
     double trace();
 };
 
+class c_diagonal_matrix : public c_square_matrix {
+public:
+    c_square_matrix converting();
+
+    c_diagonal_matrix(int a);
+
+    int getfirstdimension();
+    int getseconddimension();
+    double* getmatrix();
+    void setmatrix(double value, double* address);
+    
+    friend c_diagonal_matrix operator*(double, c_diagonal_matrix);
+    friend c_diagonal_matrix operator*(c_diagonal_matrix, double);
+
+    void define_values();
+    void show_matrix();
+    double det();
+    double trace();
+    void null_matrix();
+
+};

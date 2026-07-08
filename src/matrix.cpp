@@ -688,3 +688,32 @@ c_square_matrix c_upper_triangular_matrix::converting(){
 
     return result;
 }
+
+
+/*
+
+diagonal matrix
+
+*/
+
+c_diagonal_matrix::c_diagonal_matrix(int a):c_square_matrix {a,false}{
+    m = a;
+    //calculate the memory allocation
+    //The same memory size as the lower
+    unsigned int byte_size_vec = m;
+    
+    matrix = new double[byte_size_vec];
+    
+    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+
+    //if (!(matrix = (double*)malloc(byte_size_vec))) {
+    //    cout << "No memory" << endl;
+    //    exit(1);
+    //}
+    //cout << "Value of byte_size_vec: " << byte_size_vec << endl;
+    //cout << "First Element Address: " << matrix << endl;
+    //cout << "Last Element Address: " << matrix + m << endl;
+    //cout << "Sizeof: " << byte_size_vec << endl;
+    size_t true_length = portable_ish_malloced_size(matrix);
+    //printf("%zu\n", true_length);
+};
