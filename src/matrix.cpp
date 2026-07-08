@@ -569,3 +569,122 @@ c_upper_triangular_matrix c_upper_triangular_matrix::operator+(c_upper_triangula
     }
     return result;
 }
+
+
+/*
+Upper Matrix Methods
+*/
+
+
+double* c_upper_triangular_matrix :: getmatrix(){
+    return matrix;
+}
+
+int c_upper_triangular_matrix :: getfirstdimension(){
+    return m;
+}
+
+int c_upper_triangular_matrix :: getseconddimension(){
+    return m;
+}
+
+void c_upper_triangular_matrix::define_values() {
+    cout << "To enter an element, type the number you want and press enter: " << endl;
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    for (int i = 1; i - 1 < m; i++) {
+        for (int j = 0; j < discount + m; j++) {
+            cin >> *(matrix + line + j);
+        }
+        line = line + discount + m;
+        discount--;
+        cout << endl;
+    }
+
+}
+
+void c_upper_triangular_matrix::show_matrix() {
+    //the formatting would be good only if all the elements of the matrix has size of 1 (in the sense of representation by strings, e.g size(142) = 3)
+    //We could implement a better solution by creating an algorithm that checks the maximum size of the elements of the matrix
+    //Then, we could use this maximum size to fix the amount of spaces needed
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    string space = "";
+    for (int i = 1; i - 1 < m; i++) {
+        cout << space;
+        for (int j = 0; j < discount + m; j++) {
+            cout <<  *(matrix + line + j) << " ";
+        }
+        space = space + " " + " ";
+        line = line + discount + m;
+        discount--;
+        cout << endl;
+    }
+}
+
+double c_upper_triangular_matrix::det() {
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    double prod = 1;
+    for (int i = 1; i - 1 < m; i++) {
+            prod = prod* (*(matrix + line ));
+            line = line + discount + m;
+            discount--;
+        }
+    cout << endl;
+    return prod;
+}
+
+double c_upper_triangular_matrix::trace(){
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    double sum = 0;
+    for (int i = 1; i - 1 < m; i++) {
+            sum = sum* (*(matrix + line ));
+            line = line + discount + m;
+            discount--;
+        }
+    cout << endl;
+    return sum;
+}
+
+c_matrix c_upper_triangular_matrix :: transpose(c_upper_triangular_matrix A) { 
+
+    //Low Quality code
+    c_matrix result(A.getfirstdimension(), A.getfirstdimension());
+
+    result = A.converting();
+    result = result.transpose();
+    return result;
+}
+
+
+c_square_matrix c_upper_triangular_matrix::converting(){
+    double* matrix_result = nullptr;
+    c_square_matrix result(m);
+    result.null_matrix();
+    matrix_result = result.getmatrix();
+    int a_line = 0;
+    double value = 0;
+
+    int i = 0;
+    int j = 0;
+    int k = 0;
+    while(i < m) {
+        a_line = (i) * m;
+        while(j < m){
+            *(matrix_result + a_line + j) = *(matrix + k);
+            j++;
+            k++;
+        }
+        i++;
+        j = i;
+        cout << endl;
+    }
+
+    return result;
+}
