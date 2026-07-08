@@ -149,7 +149,7 @@ c_matrix c_matrix::operator*(const c_matrix& obj) const {
 }
 
 
- c_matrix operator*(double lambda, c_matrix A){
+c_matrix operator*(double lambda, c_matrix A){
     int line = 0;
     int column = 0;
     int i = 0;
@@ -519,4 +519,53 @@ c_matrix c_lower_triangular_matrix::transpose(c_lower_triangular_matrix A) {
     result = A.converting();
     result = result.transpose();
     return result;
- }
+}
+
+/*
+upper triangular matrix
+*/
+
+
+c_upper_triangular_matrix::c_upper_triangular_matrix(int a) : c_square_matrix{ a, false }{
+    m = a;
+    //calculate the memory allocation
+    //The same memory size as the lower
+    int count = 0;
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j <= i; ++j) {
+            count = count + 1;
+        }
+    }
+    unsigned int byte_size_vec = count;
+    
+    matrix = new double[byte_size_vec];
+
+    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+    
+
+    //if (!(matrix = (double*)malloc(byte_size_vec))) {
+    //    cout << "No memory" << endl;
+    //    exit(1);
+    //}
+    //cout << "First Element Address: " << matrix << endl;
+    //cout << "Last Element Address: " << matrix + m * m - 1 << endl;
+    //cout << "Sizeof: " << byte_size_vec << endl;
+    size_t true_length = portable_ish_malloced_size(matrix);
+    //printf("%zu\n", true_length);
+};
+
+c_upper_triangular_matrix c_upper_triangular_matrix::operator+(c_upper_triangular_matrix const& obj) {
+    c_upper_triangular_matrix result(m);
+    int line = 0;
+    int index = 0;
+    int discount = 0;
+    for (int i = 1; i - 1 < m; i++) {
+        for (int j = 0; j < discount + m; j++) {
+            *(result.matrix + line + j) = *(matrix + line + j) + *(obj.matrix + line + j);
+        }
+        line = line + discount + m;
+        discount--;
+        cout << endl;
+    }
+    return result;
+}
