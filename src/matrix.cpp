@@ -2,6 +2,7 @@
 #include <iostream>
 #include <typeinfo>
 #include <malloc.h>
+#include <immintrin.h>
 
 size_t portable_ish_malloced_size(const void* p) {
     return malloc_usable_size((void*)p);
@@ -958,6 +959,71 @@ c_matrix c_matrix::multiply_ikj(const c_matrix& obj) const{
 
 
 
-//c_matrix multiply_SIMD(const c_matrix& obj) const;
+c_matrix c_matrix::multiply_SIMD(const c_matrix& obj) const{
+    //Two matrices multiplication of size m*n and n*p
+    //Resulting matrix must be of m*p size
+    //m x n * n x p
+    int p = obj.n;
+    if (n == obj.m) {
+        c_matrix result(m, p); //deveria ser m e nao obj.m
+        result.null_matrix();
+        int a_line = 0;
+        int b_line = 0;
+        int c_line = 0;
+        double sum = 0;
+        double a_ik = 0;
+        double b_kj = 0;
+        for (int i = 0; i < m; ++i) {
+            a_line = i * n;
+            //changing the order of iteration
+            //switching from ijk to ikj for optimizing cache hit
+            for (int k = 0; k < n; ++k){
+                sum = 0;
+                b_line = k * p;
+                a_ik = *(matrix + a_line + k);
+                int j = 0;
+                //precisamos impedir que tentemos acessar valores fora tanto p direita quanto p esquerda
+                while  (j < p - 4) {
+                    //b_kj = *(obj.matrix + b_line + j);
+                    //sum = sum + a_ik * b_kj;
+                    __m256d vec_a = _mm256_set1_pd(a_ik); 
+                    __m256d vec_b = _mm256_set1_pd(*(obj.matrix + b_line + j)); 
+                    __m256d vec_c = _mm256_set1_pd(*(result.matrix + i*p + j)); 
+                    
+                    __m256d result1 = _mm256_fmadd_pd(vec_a, vec_b, vec_c);
+
+                    _mm256_storeu_pd(result.matrix + i*p + j, result1);
+
+                    //*(result.matrix + i*p + j) = *(result.matrix + i*p + j) + a_ik * b_kj;
+
+
+                    //cout << "a_ij: " << a_ik << " b_jk: " << b_kj << " sum: "<< sum << " c_ij: " << *(result.matrix + i*p + j) << endl;
+                    //*(result.matrix + i*p + j) = sum;
+
+                    // a gente precisa andar de 4 em 4 pq a instrucao ja opera 4 ao mesmo tempo 
+                    j = j + 3;
+                }
+                //o que sobrar a gente n usa a instrucao intrinseca
+                for (; j < p; ++j) {
+                    b_kj = *(obj.matrix + b_line + j);
+                    *(result.matrix + i*p + j) = *(result.matrix + i*p + j) + a_ik * b_kj;
+                }
+            }
+        }
+
+        return result;
+        }
+    else {
+        cout << "Matrix multiplication Undefined" << endl;
+        cout << "First Matrix" << endl;
+        cout << "m:  " << m << "\t" << "n:  " << n << "\t" << endl;
+        cout << "Second Matrix" << endl;
+        cout << "m:  " << obj.m << "\t" << "n:  " << obj.n << "\t" << endl;
+        throw "You cannot perform this operation!";
+    }
+}
+
+
+
 //c_matrix multiply_CUDA(const c_matrix& obj) const;
 
