@@ -1025,6 +1025,7 @@ c_matrix c_matrix::multiply_SIMD(const c_matrix& obj) const{
 }
 
 
+//c_matrix c_matrix::sum_CUDA(const c_matrix& obj) const;
 
 //c_matrix multiply_CUDA(const c_matrix& obj) const;
 
