@@ -3,16 +3,18 @@
 
 int main (){
     
-    c_matrix A(3,2);
-    c_matrix B(2,3);
-    A.define_values(true,0);
-    B.define_values(true,0);
+    c_matrix A(4,4);
+    c_matrix B(4,4);
+    A.define_values(false,10);
+    B.define_values(false,10);
     // cout << "Testing c_matrix multiplication and multiplication by scalar: " << endl;
     A.show_matrix();
     B.show_matrix();
     c_matrix C = A * B;
     (C).show_matrix();
     (A.multiply_ikj(B)).show_matrix();
+    (A.multiply_SIMD(B)).show_matrix();
+    
     // (3*A).show_matrix();
     // (A*B+A*B).show_matrix();
     // c_square_matrix C(3);
