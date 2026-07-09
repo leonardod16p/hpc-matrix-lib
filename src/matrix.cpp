@@ -980,15 +980,16 @@ c_matrix c_matrix::multiply_SIMD(const c_matrix& obj) const{
             for (int k = 0; k < n; ++k){
                 sum = 0;
                 b_line = k * p;
-                a_ik = *(matrix + a_line + k);
+                //a_ik = *(matrix + a_line + k);
+                __m256d vec_a = _mm256_set1_pd(*(matrix + a_line + k)); 
+
                 int j = 0;
                 //precisamos impedir que tentemos acessar valores fora tanto p direita quanto p esquerda
-                while  (j < p - 4) {
+                while  (j <= p - 4) {
                     //b_kj = *(obj.matrix + b_line + j);
                     //sum = sum + a_ik * b_kj;
-                    __m256d vec_a = _mm256_set1_pd(a_ik); 
-                    __m256d vec_b = _mm256_set1_pd(*(obj.matrix + b_line + j)); 
-                    __m256d vec_c = _mm256_set1_pd(*(result.matrix + i*p + j)); 
+                    __m256d vec_b = _mm256_loadu_pd((obj.matrix + b_line + j)); 
+                    __m256d vec_c = _mm256_loadu_pd((result.matrix + i*p + j)); 
                     
                     __m256d result1 = _mm256_fmadd_pd(vec_a, vec_b, vec_c);
 
@@ -1001,7 +1002,7 @@ c_matrix c_matrix::multiply_SIMD(const c_matrix& obj) const{
                     //*(result.matrix + i*p + j) = sum;
 
                     // a gente precisa andar de 4 em 4 pq a instrucao ja opera 4 ao mesmo tempo 
-                    j = j + 3;
+                    j = j + 4;
                 }
                 //o que sobrar a gente n usa a instrucao intrinseca
                 for (; j < p; ++j) {
