@@ -12,7 +12,7 @@ int main (){
 
     cout << "main.cpp entrando em acao" << std::endl;
 
-    hello_cuda();
+    //hello_cuda();
 
     cout << "main.cpp de novo" << std::endl;
     //c_matrix A(4,4);
