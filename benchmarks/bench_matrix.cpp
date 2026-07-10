@@ -1,56 +1,56 @@
 #include <benchmark/benchmark.h>
 #include "matrix.hpp" 
 
-static void BM_MultiplicacaoMatriz_default(benchmark::State& state) {
-    //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
-    c_matrix A(2500, 2500);
-    c_matrix B(2500, 2500);
+// static void BM_MultiplicacaoMatriz_default(benchmark::State& state) {
+//     //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
+//     c_matrix A(2500, 2500);
+//     c_matrix B(2500, 2500);
 
-    A.define_values(false, 10000000000000);
-    B.define_values(false, 10000000000000);
+//     A.define_values(false, 10000000000000);
+//     B.define_values(false, 10000000000000);
 
-    for (auto _ : state) {
-        c_matrix C = A * B;
-        benchmark::DoNotOptimize(C);
-    }
-}
+//     for (auto _ : state) {
+//         c_matrix C = A * B;
+//         benchmark::DoNotOptimize(C);
+//     }
+// }
 
-BENCHMARK(BM_MultiplicacaoMatriz_default);
-
-
-static void BM_MultiplicacaoMatriz_ikj(benchmark::State& state) {
-    //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
-    c_matrix A(2500, 2500);
-    c_matrix B(2500, 2500);
-
-    A.define_values(false, 10000000000000);
-    B.define_values(false, 10000000000000);
-
-    for (auto _ : state) {
-        c_matrix C = A.multiply_ikj(B);
-        benchmark::DoNotOptimize(C);
-    }
-}
-
-BENCHMARK(BM_MultiplicacaoMatriz_ikj);
+// BENCHMARK(BM_MultiplicacaoMatriz_default);
 
 
+// static void BM_MultiplicacaoMatriz_ikj(benchmark::State& state) {
+//     //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
+//     c_matrix A(2500, 2500);
+//     c_matrix B(2500, 2500);
 
-static void BM_MultiplicacaoMatriz_SIMD(benchmark::State& state) {
-    //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
-    c_matrix A(2500, 2500);
-    c_matrix B(2500, 2500);
+//     A.define_values(false, 10000000000000);
+//     B.define_values(false, 10000000000000);
 
-    A.define_values(false, 10000000000000);
-    B.define_values(false, 10000000000000);
+//     for (auto _ : state) {
+//         c_matrix C = A.multiply_ikj(B);
+//         benchmark::DoNotOptimize(C);
+//     }
+// }
 
-    for (auto _ : state) {
-        c_matrix C = A.multiply_SIMD(B);
-        benchmark::DoNotOptimize(C);
-    }
-}
+// BENCHMARK(BM_MultiplicacaoMatriz_ikj);
 
-BENCHMARK(BM_MultiplicacaoMatriz_SIMD);
+
+
+// static void BM_MultiplicacaoMatriz_SIMD(benchmark::State& state) {
+//     //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
+//     c_matrix A(2500, 2500);
+//     c_matrix B(2500, 2500);
+
+//     A.define_values(false, 10000000000000);
+//     B.define_values(false, 10000000000000);
+
+//     for (auto _ : state) {
+//         c_matrix C = A.multiply_SIMD(B);
+//         benchmark::DoNotOptimize(C);
+//     }
+// }
+
+// BENCHMARK(BM_MultiplicacaoMatriz_SIMD);
 
 static void BM_MultiplicacaoMatriz_CUDA(benchmark::State& state) {
     //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
@@ -67,6 +67,23 @@ static void BM_MultiplicacaoMatriz_CUDA(benchmark::State& state) {
 }
 
 BENCHMARK(BM_MultiplicacaoMatriz_CUDA);
+
+static void BM_SomaMatriz_CUDA(benchmark::State& state) {
+    //A 10000x10000 array of doubles is the largest memory allocation my computer can handle safely
+    c_matrix A(2500, 2500);
+    c_matrix B(2500, 2500);
+
+    A.define_values(false, 10);
+    B.define_values(false, 10);
+
+    for (auto _ : state) {
+        c_matrix C = A.sum_CUDA(B);
+        benchmark::DoNotOptimize(C);
+    }
+}
+
+BENCHMARK(BM_SomaMatriz_CUDA);
+
 
 
 // int main (){
