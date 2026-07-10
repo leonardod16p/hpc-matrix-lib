@@ -5,7 +5,7 @@ using namespace std;
 
 extern void hello_cuda();
 
-extern void multiply_CUDA(const c_matrix& obj) const;
+extern c_matrix multiply_CUDA(const c_matrix& obj);
 
 
 int main (){
@@ -15,11 +15,11 @@ int main (){
     hello_cuda();
 
     cout << "main.cpp de novo" << std::endl;
-    // c_matrix A(4,4);
+    //c_matrix A(4,4);
     // c_matrix B(4,4);
     // A.define_values(false,10);
     // B.define_values(false,10);
-    // // cout << "Testing c_matrix multiplication and multiplication by scalar: " << endl;
+    // // // cout << "Testing c_matrix multiplication and multiplication by scalar: " << endl;
     // A.show_matrix();
     // B.show_matrix();
     // c_matrix C = A * B;
