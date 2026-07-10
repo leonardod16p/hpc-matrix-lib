@@ -70,14 +70,14 @@ c_matrix c_matrix::multiply_CUDA(const c_matrix& obj) const{
         cudaMemcpy(device_matrix3, result.matrix, byte_matrix3_size, cudaMemcpyHostToDevice);
  
         //definindo o tamanho do bloco
-        dim3 threads_por_bloco(32,32);
+        dim3 threads_por_bloco(16,16);
 
 
         //we need to fit our block into the result matrix
         //this follow Output-Driven Design in GPU algorithms 
         //numero de blocos que precisamos em cada diferecao do grid
-        int blocos_x = (p + 32 - 1) / 32;
-        int blocos_y = (m + 32 - 1) / 32;
+        int blocos_x = (p + 16 - 1) / 16;
+        int blocos_y = (m + 16 - 1) / 16;
 
         dim3 numero_de_blocos(blocos_x, blocos_y);
 
@@ -109,9 +109,9 @@ c_matrix c_matrix::multiply_CUDA(const c_matrix& obj) const{
         cudaFree(device_matrix3);   
 
         //vendo o resultado na cpu
-        for (int i = 0; i < matrix3_size; i++) {
-            cout << "resultado " << i << ": " << result.matrix[i] << "\t";
-        }
+        //for (int i = 0; i < matrix3_size; i++) {
+        //    cout << "resultado " << i << ": " << result.matrix[i] << "\t";
+        //}
 
 
         // retornamos o objeto matriz 
