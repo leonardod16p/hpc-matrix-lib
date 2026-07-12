@@ -8,6 +8,7 @@ extern void hello_cuda();
 extern c_matrix multiply_CUDA(const c_matrix& obj);
 
 
+
 int main (){
 
     cout << "main.cpp entrando em acao" << std::endl;

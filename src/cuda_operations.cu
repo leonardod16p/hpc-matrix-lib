@@ -1,6 +1,17 @@
 #include <iostream>
 #include <stdio.h>
 #include "matrix.hpp"
+#include <cmath>
+
+
+__global__ void kernel_vector_sigmoid(double* x, double* y, int size){
+
+    int id = blockIdx.x * blockDim.x + threadIdx.x;
+
+    y[id] = 1/(1 + std::exp(-x[id]));
+
+}
+
 
 
 __global__ void kernel_sum_CUDA(double* matrix1, double* matrix2, double* matrix3, int m, int n){
@@ -35,6 +46,55 @@ __global__ void kernel_multiply_CUDA(double* matrix1, double* matrix2, double* m
     }
 
 }
+
+double* vector_sigmoid_CUDA(double* x, double* y, int size){
+
+    
+    int byte_vector_size = size * sizeof(double); 
+     
+    double* device_vector1 = 0;
+    double* device_vector2 = 0;
+
+    cudaMalloc((void**)&device_vector1, byte_vector_size);
+    cudaMalloc((void**)&device_vector2, byte_vector_size);
+
+
+    cudaMemcpy(device_vector1, x, byte_vector_size, cudaMemcpyHostToDevice);
+    cudaMemcpy(device_vector2, y, byte_vector_size, cudaMemcpyHostToDevice);
+    
+    //chamando o kernel
+
+    kernel_vector_sigmoid<<<1, size>>>(device_vector1, device_vector2, size);
+    
+    //funcao de debug 
+    cudaError_t erro = cudaGetLastError();
+    if (erro != cudaSuccess) {
+        printf("\n ultimo erro: %s\n", cudaGetErrorString(erro));
+    }
+
+
+    //esperamos a gpu terminar
+    cudaDeviceSynchronize();
+        
+        
+    //pegando a operacao terminada loaded in the vram device_matrix and puting in main memory on matrix.result address 
+    //armazenando o resultado na matriz construida m x n chamada result
+    cudaMemcpy(y, device_vector2, byte_vector_size, cudaMemcpyDeviceToHost);
+
+ 
+    //deallocating all the three vram matrix memory
+    cudaFree(device_vector1);
+    cudaFree(device_vector2);   
+
+    //vendo o resultado na cpu
+    for (int i = 0; i < size; i++) {
+        cout << "resultado " << i << ": " << y[i] << "\t";
+    }
+
+    return y;
+}
+
+
 
 c_matrix c_matrix::sum_CUDA(const c_matrix& obj) const{
     int p = obj.n;
