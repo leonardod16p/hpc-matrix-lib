@@ -2,7 +2,7 @@
 
 > Work in Progress: This project is currently under active development
 
-Every matrix is treated as a contiguous 1D memory block under the hood. This architecture favors cache locality, minimizes random memory access, and acts as the perfect foundation for High-Performance Computing (HPC).
+All matrices are implemented as contiguous 1D memory blocks. For triangular and diagonal matrices, memory is dynamically mapped to store only the required structural regions (e.g., the lower/upper triangle), avoiding the allocation of implicit zeros. This architecture ensures spatial cache locality and eliminates random memory access patterns, aligning with High-Performance Computing (HPC) standards.
 
 
 ### Goals
