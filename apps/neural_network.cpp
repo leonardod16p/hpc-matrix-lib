@@ -27,6 +27,22 @@ double* vector_sigmoid(double* x, int size){
 // w_ 0 = w_0 - taxa_de_aprendizado * gradiente_(w_o)
 // w_ 1 = w_1 - taxa_de_aprendizado * gradiente_(w_1)
 
+double gradiente_w0(double estimative_value, double real_value, double x, double sample_size){
+    double sum = 0;
+    for (int i = 0; i < sample_size; i++){
+        sum  = sum + (1/sample_size)*(estimative_value - real_value);
+    }
+    return sum;
+}
+
+double gradiente_w1(double estimative_value, double real_value, double x, double sample_size){
+    double sum = 0;
+    for (int i = 0; i < sample_size; i++){
+        sum  = sum + (1/sample_size)*(estimative_value - real_value) * x;
+    }
+    return sum;
+}
+
 // double* simple_gradient_descent(double w_0, double w_1, double taxa_de_aprendizado){
 //     unsigned int n = 0;     // numero de iteracoes
 //     for (int i = 0; i < n; i++){                            
@@ -34,6 +50,8 @@ double* vector_sigmoid(double* x, int size){
 //         w_1 = w_1 - taxa_de_aprendizado * gradiente_(w_1)
 //     }
 // }
+
+
 
 int main(){
     double x = 0;
