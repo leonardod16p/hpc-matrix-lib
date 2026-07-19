@@ -51,33 +51,63 @@ double gradiente_w1(double estimative_value, double real_value, double x, double
 //     }
 // }
 
+double y_hat (double x, double w0, double w1){
+    return w0 + w1*x;
+}
 
+double mse(double* input, double* output, double peso1, double peso2, double sample_size){
+    double custo = 0;
+    for (int i = 0; i < sample_size; i++){
+        custo = custo + pow((y_hat(input[i], peso1, peso2) - output[i]),2);
+        std::cout << custo << std::endl;
+
+    }
+    return custo/sample_size;
+}
 
 int main(){
     double x = 0;
-    double* vector = 0;
-    double* vector_result = 0;
-    vector = new double[3];
-    vector_result = new double[3]; 
+    double* input = 0;
+    double* output = 0;
+    
+    input = new double[3];
+    output = new double[3]; 
 
-    vector[0] = 0;
-    vector[1] = 0.5;
-    vector[2] = 1.256;
+    input[0] = 0.5;
+    input[1] = 2.2;
+    input[2] = 2;
+
+    output[0] = 2.0;
+    output[1] = 2.5;
+    output[2] = 1.4;
+    
+    
+    double taxa_de_aprendizado = 0.01;
+    
+    double w_0 = 0.1;
+    double w_1 = 0.1;
+
+    std::cout << y_hat(1.5,w_0, w_1) << std::endl;
+
+    std::cout << mse(input,output, w_0, w_1,3) << std::endl;
+
 
     /*a conta da certa, mas se eu tento rodar de novo a funcao que calcula embaixo os valores ja sao outros
     parece que eu to modificando valores que eu n deveria modificar*/
-    vector_sigmoid_CUDA(vector, vector_result, 3);
+    //vector_sigmoid_CUDA(vector, vector_result, 3);
 
 
-    vector_result = vector_sigmoid(vector,3);
+    //vector_result = vector_sigmoid(vector,3);
     
-    for (int i = 0; i < 3; i++){
-        std::cout << "Valor da funcao sigmoid: " << vector_result[i] << " avaliada em " << vector[i] << endl;
-    }
+    // for (int i = 0; i < 3; i++){
+    //     std::cout << "Valor da funcao sigmoid: " << vector_result[i] << " avaliada em " << vector[i] << endl;
+    // }
 
 
-    std::cout << "Valor da funcao sigmoid: " << scalar_sigmoid(1/4+1/2-1) << " avaliada em "<< 1/4+1/2-1 << endl;
+    // std::cout << "Valor da funcao sigmoid: " << scalar_sigmoid(1/4+1/2-1) << " avaliada em "<< 1/4+1/2-1 << endl;
 
-    vector_sigmoid_CUDA(vector, vector_result, 3);
+    // vector_sigmoid_CUDA(vector, vector_result, 3);
+
+
 
 }
