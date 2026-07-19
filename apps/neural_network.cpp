@@ -43,6 +43,28 @@ double gradiente_w1(double estimative_value, double real_value, double x, double
     return sum;
 }
 
+
+double y_hat (double x, double w0, double w1){
+    return w0 + w1*x;
+}
+
+void gradient_descent_step(double* novos_pesos, double peso1, double peso2, double* input, double* output, double taxa_de_aprendizado, double sample_size){
+    double erro_w0 = 0;
+    double erro_w1 = 0;
+    
+    for (int i = 0; i < sample_size; i++){
+        erro_w0 = erro_w0 + (y_hat(input[i], peso1, peso2) - output[i]);
+        erro_w1 = erro_w1 + (y_hat(input[i], peso1, peso2) - output[i]) * input[i];
+    }
+    double new_w0 = peso1 - taxa_de_aprendizado * (1/sample_size) * erro_w0; 
+    double new_w1 = peso2 - taxa_de_aprendizado * (1/sample_size) * erro_w1;
+    //eu tenho que mudar p so passar o valor ao inves do endereco;
+    novos_pesos[0] = new_w0;
+    novos_pesos[1] = new_w1;
+}
+
+
+
 // double* simple_gradient_descent(double w_0, double w_1, double taxa_de_aprendizado){
 //     unsigned int n = 0;     // numero de iteracoes
 //     for (int i = 0; i < n; i++){                            
@@ -51,9 +73,6 @@ double gradiente_w1(double estimative_value, double real_value, double x, double
 //     }
 // }
 
-double y_hat (double x, double w0, double w1){
-    return w0 + w1*x;
-}
 
 double mse(double* input, double* output, double peso1, double peso2, double sample_size){
     double custo = 0;
@@ -69,7 +88,7 @@ int main(){
     double x = 0;
     double* input = 0;
     double* output = 0;
-    
+
     input = new double[3];
     output = new double[3]; 
 
@@ -91,6 +110,15 @@ int main(){
 
     std::cout << mse(input,output, w_0, w_1,3) << std::endl;
 
+    double* novos_pesos = 0;
+    novos_pesos = new double[2];
+
+    gradient_descent_step(novos_pesos, w_0, w_1, input, output, taxa_de_aprendizado, 3);
+    
+    std::cout << novos_pesos[0] << "\t" << novos_pesos[1] << std::endl;
+
+
+    
 
     /*a conta da certa, mas se eu tento rodar de novo a funcao que calcula embaixo os valores ja sao outros
     parece que eu to modificando valores que eu n deveria modificar*/
