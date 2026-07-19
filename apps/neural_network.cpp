@@ -23,7 +23,17 @@ double* vector_sigmoid(double* x, int size){
 }
 
 
+// gradiente descendente numa reta linear simples 
+// w_ 0 = w_0 - taxa_de_aprendizado * gradiente_(w_o)
+// w_ 1 = w_1 - taxa_de_aprendizado * gradiente_(w_1)
 
+// double* simple_gradient_descent(double w_0, double w_1, double taxa_de_aprendizado){
+//     unsigned int n = 0;     // numero de iteracoes
+//     for (int i = 0; i < n; i++){                            
+//         w_0 = w_0 - taxa_de_aprendizado * gradiente_(w_o)   
+//         w_1 = w_1 - taxa_de_aprendizado * gradiente_(w_1)
+//     }
+// }
 
 int main(){
     double x = 0;
