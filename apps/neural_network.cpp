@@ -4,6 +4,9 @@
 
 extern double* vector_sigmoid_CUDA(double* x, double* y, int size);
 
+//variavel global hardcodada que diz quantas iteracoes do gradient descent step faremos 
+int epoch = 6000; 
+
 double scalar_sigmoid(double x){
     return 1/(1 + std::exp(-x));
 }
@@ -49,15 +52,16 @@ double y_hat (double x, double w0, double w1){
 }
 
 void gradient_descent_step(double* novos_pesos, double peso1, double peso2, double* input, double* output, double taxa_de_aprendizado, double sample_size){
+    std::cout << "To no passo do gradiente descendente" << std::endl;
     double erro_w0 = 0;
     double erro_w1 = 0;
     
     for (int i = 0; i < sample_size; i++){
-        erro_w0 = erro_w0 + (y_hat(input[i], peso1, peso2) - output[i]);
-        erro_w1 = erro_w1 + (y_hat(input[i], peso1, peso2) - output[i]) * input[i];
+        erro_w0 = erro_w0 + (y_hat(input[i], novos_pesos[0], novos_pesos[1]) - output[i]);
+        erro_w1 = erro_w1 + (y_hat(input[i], novos_pesos[0], novos_pesos[1]) - output[i]) * input[i];
     }
-    double new_w0 = peso1 - taxa_de_aprendizado * (1/sample_size) * erro_w0; 
-    double new_w1 = peso2 - taxa_de_aprendizado * (1/sample_size) * erro_w1;
+    double new_w0 = novos_pesos[0] - taxa_de_aprendizado * (1/sample_size) * erro_w0; 
+    double new_w1 = novos_pesos[1] - taxa_de_aprendizado * (1/sample_size) * erro_w1;
     //eu tenho que mudar p so passar o valor ao inves do endereco;
     novos_pesos[0] = new_w0;
     novos_pesos[1] = new_w1;
@@ -78,11 +82,35 @@ double mse(double* input, double* output, double peso1, double peso2, double sam
     double custo = 0;
     for (int i = 0; i < sample_size; i++){
         custo = custo + pow((y_hat(input[i], peso1, peso2) - output[i]),2);
+        std::cout << "To calculando o erro" << std::endl;
         std::cout << custo << std::endl;
 
     }
+    std::cout << "custo: " << custo << std::endl;
+    std::cout << "custo/sample_size: " << custo/sample_size << std::endl;
+    
     return custo/sample_size;
 }
+
+
+//custo precisa ter o mesmo tamanho da epoca
+void gradient_descent(double* custo, double* novos_pesos, double* input, double* output, double peso1, double peso2, double taxa_de_aprendizado, double epoch, double sample_size){
+    std::cout << "to no gradiente descendente principal" << std::endl;
+    for (int i = 0; i < epoch; i++){
+        std::cout << "passo gradiente descente: " << i << std::endl;
+    
+        //temos um array que guarda dois pesos que sao atualizados a cada chamada
+        // a cada eu preciso usar os novos pesos
+        gradient_descent_step(novos_pesos, peso1, peso2, input, output, taxa_de_aprendizado, sample_size);
+        std::cout << "sai do gradiente step: " << i << std::endl;
+        
+        //temos um array de custo de tamanho epoch que guarda o erro quadratico de cada iteracao
+        custo[i] = mse(input,output, peso1, peso2,sample_size);
+        std::cout << "sai da chamada do mse: " << i << std::endl;
+        
+    }
+}
+
 
 int main(){
     double x = 0;
@@ -117,6 +145,15 @@ int main(){
     
     std::cout << novos_pesos[0] << "\t" << novos_pesos[1] << std::endl;
 
+    double* custo = 0;
+    custo = new double[epoch];
+    //custo = {0};
+    
+    //(double* custo, double* novos_pesos, double* input, double* output, double peso1, double peso2, double taxa_de_aprendizado, double epoch, double sample_size)
+    
+    gradient_descent(custo, novos_pesos, input, output, w_0, w_1, taxa_de_aprendizado, epoch, 3);
+    
+    std::cout << novos_pesos[0] << "\t" << novos_pesos[1] << std::endl;
 
     
 
