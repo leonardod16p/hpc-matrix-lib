@@ -100,7 +100,24 @@ double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& ou
     c_matrix cost = error * error;
 
     //return cost/m;
+    return 0;
     
+}
+
+void multiple_variable_gradient_descent(c_matrix& weighs, c_matrix& features, c_matrix& output, double taxa_de_aprendizado, unsigned int epoch){
+    //i need to define matrix dimension 
+    //c_matrix cost;
+    //i will just call null matrix when the matrix is well defined 
+    //cost.null_matrix();
+
+    //size() n parece q ta implementado 
+    //weighs = weighs - taxa_de_aprendizado/(features.size()) * //sum ((features * (weighs.transpose()) + (-1)*output) * features
+
+    //preciso implementar a sobrecarga de operador: [][] 
+    //cost[i] = multiple_variables_mse(weighs, features, output);
+
+    //return weight and cost;
+
 }
 
 //custo precisa ter o mesmo tamanho da epoca
