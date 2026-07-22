@@ -98,6 +98,8 @@ double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& ou
     c_matrix error = features * (weighs.transpose()) + ((-1)*output);
     //i need to sum all over here. sum (error * error)
     c_matrix cost = error * error;
+
+    //return cost/m;
     
 }
 
