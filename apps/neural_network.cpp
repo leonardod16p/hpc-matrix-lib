@@ -92,6 +92,14 @@ double mse(double* input, double* output, double peso1, double peso2, double sam
     return custo/sample_size;
 }
 
+//receber como parametros matrizes de pesos, as entradas e as saidas
+double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& output){
+    //matriz de erros 
+    c_matrix error = features * (weighs.transpose()) + ((-1)*output);
+    //i need to sum all over here. sum (error * error)
+    c_matrix cost = error * error;
+    
+}
 
 //custo precisa ter o mesmo tamanho da epoca
 void gradient_descent(double* custo, double* novos_pesos, double* input, double* output, double peso1, double peso2, double taxa_de_aprendizado, double epoch, double sample_size){
