@@ -93,19 +93,30 @@ double mse(double* input, double* output, double peso1, double peso2, double sam
 }
 
 //receber como parametros matrizes de pesos, as entradas e as saidas
-double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& output){
+double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& output, unsigned int features_size){
+ 
     //matriz de erros 
     c_matrix error = features * (weighs.transpose()) + ((-1)*output);
     //i need to sum all over here. sum (error * error)
-    c_matrix cost = error * error;
-
-    //return cost/m;
-    return 0;
+    double cost = 0;  
+    c_matrix sqr_matrix_error = error * error;
     
+    //usar setmatrix e getmatrix talvez seja uma ma ideia
+    for (int i = 0; i < features_size; i++){
+        //preciso implementar sum em tais indices
+    
+        //using getmatrix to return matrix address and index i to travel
+        //be careful to check if the pointer aritmetic is working fine
+        //i is int and matrix could possibly be double
+        cost = cost + *(sqr_matrix_error.getmatrix() + i);
+    }
+    //return cost/m; o que eh m? eh o len (X) que sao os features acho que eu vou pedir como parametro o tamanho dos arrays
+    return cost/features_size;
 }
 
 void multiple_variable_gradient_descent(c_matrix& weighs, c_matrix& features, c_matrix& output, double taxa_de_aprendizado, unsigned int epoch){
-    //i need to define matrix dimension 
+    //i need to define matrix dimension
+
     //c_matrix cost;
     //i will just call null matrix when the matrix is well defined 
     //cost.null_matrix();
