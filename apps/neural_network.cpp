@@ -114,7 +114,7 @@ double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& ou
     return cost/features_size;
 }
 
-void multiple_variable_gradient_descent(c_matrix& weighs, c_matrix& features, c_matrix& output, double taxa_de_aprendizado, unsigned int epoch){
+void multiple_variable_gradient_descent(c_matrix& weighs, c_matrix& features, c_matrix& output, unsigned int features_size, double taxa_de_aprendizado, unsigned int epoch){
     //i need to define matrix dimension
 
     //c_matrix cost;
