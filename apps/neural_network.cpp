@@ -1,7 +1,7 @@
 #include "matrix.hpp"
 #include <cmath>
 #include <iostream>
-
+#include <random>
 
 extern double* vector_sigmoid_CUDA(double* x, double* y, int size);
 
@@ -152,6 +152,29 @@ void gradient_descent(double* custo, double* novos_pesos, double* input, double*
     }
 }
 
+void initial_random_weight(c_matrix& weight_holder, unsigned int number_of_columns){
+    //temos que criar tantos pesos quanto colunas tivermos
+    /*
+    size bedroom   price
+  0 2104       3  399990
+  1 1600       3  329900
+    .
+    .
+    .
+    */
+    std::random_device rd1, rd2, rd3;
+    std::mt19937 gen1(rd1());
+    std::mt19937 gen2(rd2());
+    std::mt19937 gen3(rd3());
+
+    //amostra uma numero aleatorio no intervalor [0,1]
+    std::uniform_real_distribution<> distr(0,1);
+
+    *(weight_holder.getmatrix()) = distr(gen1);
+    *(weight_holder.getmatrix() + 1) = distr(gen2);
+    *(weight_holder.getmatrix() + 2) = distr(gen3);
+    
+}
 
 int main(){
     double x = 0;
@@ -214,6 +237,39 @@ int main(){
 
     // vector_sigmoid_CUDA(vector, vector_result, 3);
 
+    //testing random number generators
+
+    double* random_numbers = 0;
+    random_numbers = new double[3];
+
+    c_matrix weighs(3,1);
+
+    //eu preciso de 3 geradores? ou eu posso usar so um?
+    std::random_device rd1, rd2, rd3;
+    std::mt19937 gen1(rd1());
+    std::mt19937 gen2(rd2());
+    std::mt19937 gen3(rd3());
+
+    //amostra uma numero aleatorio no intervalor [0,1]
+    std::uniform_real_distribution<> distr(0,1);
+
+
+    random_numbers[0] = distr(gen1);
+    random_numbers[1] = distr(gen2);
+    random_numbers[2] = distr(gen3);
+    
+    std::cout << "n: " << random_numbers[0] << "\t" << random_numbers[1] << "\t" << random_numbers[2] << "\t" << std::endl; 
+
+    weighs.null_matrix();
+
+    weighs.show_matrix();
+
+    initial_random_weight(weighs, 3);
+
+    weighs.show_matrix();
+
+    //FUNCIONOOOU
+    
 
 
 }
