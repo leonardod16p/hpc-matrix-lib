@@ -170,6 +170,9 @@ void initial_random_weight(c_matrix& weight_holder, unsigned int number_of_colum
     //amostra uma numero aleatorio no intervalor [0,1]
     std::uniform_real_distribution<> distr(0,1);
 
+    //acho que eu n preciso chamar getmatrix toda hora que eu quiser acessar a matriz
+    //posso chamar e armazenar o endereco. dps so defenrencio ele p acessar os valores
+    //MAS TEM QUE TOMAR CUIDADO COM ESSE TIPO DE COISA
     *(weight_holder.getmatrix()) = distr(gen1);
     *(weight_holder.getmatrix() + 1) = distr(gen2);
     *(weight_holder.getmatrix() + 2) = distr(gen3);
