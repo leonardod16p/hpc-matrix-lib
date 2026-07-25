@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 
+
 extern double* vector_sigmoid_CUDA(double* x, double* y, int size);
 
 //variavel global hardcodada que diz quantas iteracoes do gradient descent step faremos 
@@ -114,20 +115,22 @@ double multiple_variables_mse(c_matrix& weighs, c_matrix& features, c_matrix& ou
     return cost/features_size;
 }
 
-void multiple_variable_gradient_descent(c_matrix& weighs, c_matrix& features, c_matrix& output, double taxa_de_aprendizado, unsigned int epoch){
+void multiple_variable_gradient_descent(c_matrix& weighs, c_matrix& features, c_matrix& output, unsigned int features_size, double taxa_de_aprendizado, unsigned int epoch){
     //i need to define matrix dimension
 
-    //c_matrix cost;
+    c_matrix cost(features_size, 1); //matriz coluna
     //i will just call null matrix when the matrix is well defined 
-    //cost.null_matrix();
+    cost.null_matrix();
+
 
     //size() n parece q ta implementado 
-    //weighs = weighs - taxa_de_aprendizado/(features.size()) * //sum ((features * (weighs.transpose()) + (-1)*output) * features
+    //weighs = weighs - taxa_de_aprendizado/(features_size) * sum ((features * (weighs.transpose()) + (-1)*output)) * features
+    weighs = weighs + (-1) * taxa_de_aprendizado/(features_size) * ((features * (weighs.transpose()) + (-1)*output)) * features;
 
     //preciso implementar a sobrecarga de operador: [][] 
     //cost[i] = multiple_variables_mse(weighs, features, output);
 
-    //return weight and cost;
+    //return weight; and cost;
 
 }
 
