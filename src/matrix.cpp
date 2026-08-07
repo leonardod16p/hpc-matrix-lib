@@ -18,7 +18,7 @@ c_matrix::c_matrix(int a, int b) {
         
         matrix = new double[byte_size_vec];
 
-        cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+        //cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
 
         //if (!(matrix = (double*)malloc(byte_size_vec))) {
         //    cout << "No memory" << endl;
@@ -28,14 +28,14 @@ c_matrix::c_matrix(int a, int b) {
         //cout << "Last Element Address: " << matrix + m * n - 1 << endl;
         //cout << "Sizeof: " << byte_size_vec << endl;
         size_t true_length = portable_ish_malloced_size(matrix);
-        printf("%zu\n", true_length);
+        //printf("%zu\n", true_length);
     };
 
 
 c_matrix::~c_matrix(){
     if (matrix != nullptr){
         delete[] matrix;
-        cout << "Memory deallocation succeed." << endl;
+        //cout << "Memory deallocation succeed." << endl;
     }
 }
 
@@ -116,7 +116,7 @@ c_matrix c_matrix::operator*(const c_matrix& obj) const {
     //m x n * n x p
     int p = obj.n;
     if (n == obj.m) {
-        cout << "m: " << obj.m << " n: " << p << endl;
+        //cout << "m: " << obj.m << " n: " << p << endl;
         c_matrix result(m, p); //deveria ser m e nao obj.m
         
         result.null_matrix();
@@ -339,7 +339,7 @@ c_lower_triangular_matrix::c_lower_triangular_matrix(int a) : c_square_matrix{ a
 
     matrix = new double[count];
 
-    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+    //cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
         
     //if (!(matrix = (double*)malloc(byte_size_vec))) {
     //    cout << "No memory" << endl;
@@ -569,7 +569,7 @@ c_upper_triangular_matrix::c_upper_triangular_matrix(int a) : c_square_matrix{ a
     
     matrix = new double[byte_size_vec];
 
-    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+    //cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
     
 
     //if (!(matrix = (double*)malloc(byte_size_vec))) {
@@ -780,7 +780,7 @@ c_diagonal_matrix::c_diagonal_matrix(int a):c_square_matrix {a,false}{
     
     matrix = new double[byte_size_vec];
     
-    cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
+    //cout << "Created a " << byte_size_vec << " size array that corresponds to a: " << m << " by " << n << " matrix" << endl;
 
     //if (!(matrix = (double*)malloc(byte_size_vec))) {
     //    cout << "No memory" << endl;
