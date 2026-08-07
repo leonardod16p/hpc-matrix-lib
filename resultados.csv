@@ -1,0 +1,178 @@
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+m: 2500 n: 2500
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+name,iterations,real_time,cpu_time,time_unit,bytes_per_second,items_per_second,label,error_occurred,error_message
+"BM_MultiplicacaoMatriz_default",1,2.28722e+10,2.28166e+10,ns,,,,,
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+"BM_MultiplicacaoMatriz_ikj",1,1.01447e+10,1.01187e+10,ns,,,,,
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+"BM_MultiplicacaoMatriz_SIMD",1,7.59426e+09,7.57348e+09,ns,,,,,
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+"BM_MultiplicacaoMatriz_CUDA",4,1.65626e+08,1.65198e+08,ns,,,,,
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Created a 6250000 size array that corresponds to a: 2500 by 2500 matrix
+50003944
+Memory deallocation succeed.
+Memory deallocation succeed.
+Memory deallocation succeed.
+"BM_SomaMatriz_CUDA",18,3.87151e+07,3.85742e+07,ns,,,,,
