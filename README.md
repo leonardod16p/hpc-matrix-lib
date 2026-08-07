@@ -28,3 +28,6 @@ The ultimate goal of this library is to serve as the mathematical engine for a f
 - Kernel: 7.1.3-arch1-1
 - Compiler and Flags: -fno-tree-vectorize | -march=native
 - Cuda Version: 13.3
+
+### Matrix Multiplication SpeedUp Graph 
+![Speedup Matrix Multiplication](data_plot/speedup_image.png)
