@@ -31,3 +31,7 @@ The ultimate goal of this library is to serve as the mathematical engine for a f
 
 ### Matrix Multiplication SpeedUp Graph 
 ![Speedup Matrix Multiplication](data_plot/speedup_image.png)
+
+### Benchmarks Description
+
+I tested four implementations of matrix multiplication. The first is the default implementation. The second is the ikj implementation, in which I switched the loop iteration order to minimize random memory access and make better use of the cache. The third is the SIMD implementation, in which I used intrinsic instructions to perform parallel matrix multiplication on the CPU. The last one is the CUDA implementation, which is a good example of an algorithm that is highly parallelizable.
