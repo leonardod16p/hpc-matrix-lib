@@ -1,0 +1,28 @@
+name: C++ CMake CI
+
+on:
+  push:
+    branches: [ "main", "refactoring-matrix" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest 
+
+    steps:
+ 
+    - name: Checkout do código
+      uses: actions/checkout@v4
+
+    - name: Instalar CUDA Toolkit
+      run: sudo apt-get update && sudo apt-get install -y nvidia-cuda-toolkit
+
+    - name: Configurar CMake
+      run: cmake -B build
+
+    - name: Compilar
+      run: cmake --build build
+
+    - name: Rodar Testes
+      run: ctest --test-dir build --output-on-failure
